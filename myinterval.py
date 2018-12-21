@@ -37,12 +37,39 @@ class Interval:
             return Interval(-oo, oo)
         return x * Interval(1/y.ub, 1/y.lb)
     
+    def __and__(x,y):
+        if (x.isEmpty() or y.isEmpty()):
+            return Interval(1,0)
+        else:
+            return Interval(max(x.lb, y.lb), min(x.ub, y.ub))
+        
+    def __or__(x,y):
+        if x.isEmpty():
+            return y
+        elif y.isEmpty():
+            return x
+        else:
+            return Interval(min(x.lb, y.lb), max(x.ub, y.ub))
+    
+    def width(x):
+        return x.ub - x.lb
+
+    def left(x):
+        return Interval(x.lb, 0.5*(x.lb+x.ub))
+    
+    def right(x):
+        return Interval(0.5*(x.lb+x.ub), x.ub)
+    
 def sqr(x):
     L = [x.lb**2, x.ub**2]
     if 0 in x:
         return(Interval(0, max(L)))
     else:
         return(Interval(min(L), max(L)))
+
+def sqrt(x):
+    x = x&Interval(0,oo)
+    return Interval(math.sqrt(x.lb), math.sqrt(x.ub))
     
 def mini(x, y):
     return(Interval(min(x.lb, y.lb), min(x.ub, y.ub)))
@@ -60,6 +87,15 @@ def log(x):
         return(Interval(-oo, math.log(x.ub)))
     else:
         return(Interval(math.log(x.lb), math.log(x.ub)))
+        
+def subset(x,y):
+    if x.isEmpty():
+        return True
+    else:
+        return (x.lb in y) and (x.ub in y)
+
+def disjoint(x,y):
+    return (x&y).isEmpty()
         
 if __name__ == "__main__":
     x = Interval(-2, 2)
