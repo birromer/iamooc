@@ -1,8 +1,5 @@
-from mybox import *
 from vibes import *
-
-def subset(F,Y):
-    pass
+from mybox import *
 
 def test(P):
     b = Interval(0,0)

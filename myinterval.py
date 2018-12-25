@@ -1,7 +1,7 @@
 import math
 
 nan = float('nan')
-oo=float('inf')
+oo =  float('inf')
 
 class Interval:
     def __init__(x, a, b):
