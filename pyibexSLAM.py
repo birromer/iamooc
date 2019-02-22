@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-
-
 from pyibex import *
 from vibes import *
 import numpy as np
